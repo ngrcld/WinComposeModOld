@@ -1,5 +1,5 @@
-﻿WinCompose
-==========
+﻿WinComposeMod
+=============
 
 A compose key for Windows, free and opensource, created by Sam Hocevar
 with the help of [dozens of contributors](https://github.com/samhocevar/wincompose/graphs/contributors).
