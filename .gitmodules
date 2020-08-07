@@ -3,13 +3,13 @@
 	url = https://anongit.freedesktop.org/git/xorg/lib/libX11.git
 [submodule "src/3rdparty/unicode-emoji"]
 	path = src/3rdparty/unicode-emoji
-	url = ../unicode-emoji.git
+	url = https://github.com/samhocevar/unicode-emoji.git
 [submodule "src/3rdparty/unicode-translation"]
 	path = src/3rdparty/unicode-translation
-	url = ../unicode-translation.git
+	url = https://github.com/samhocevar/unicode-translation.git
 [submodule "src/3rdparty/xcompose"]
 	path = src/3rdparty/xcompose
-	url = ../fork-xcompose.git
+	url = https://github.com/samhocevar/fork-xcompose.git
 [submodule "src/3rdparty/xorgproto"]
 	path = src/3rdparty/xorgproto
 	url = git://anongit.freedesktop.org/git/xorg/proto/xorgproto
@@ -18,7 +18,7 @@
 	url = ../../einaregilsson/InsertIcons
 [submodule "src/3rdparty/wpf-notify-icon"]
 	path = src/3rdparty/wpf-notify-icon
-	url = ../fork-wpf-notify-icon.git
+	url = https://github.com/samhocevar/fork-wpf-notify-icon.git
 [submodule "src/3rdparty/innosetup"]
 	path = src/3rdparty/innosetup
 	url = ../../jrsoftware/issrc.git
