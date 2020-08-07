@@ -80,5 +80,5 @@
 <Multi_key> <">       : "“"  # left double quote
 <Multi_key> <£>       : "”"  # right double quote
 
-<Multi_key> <b> <u> : "unionerenolavinosamoggia.bo.it"
-<Multi_key> <b> <c> : "comune.casalecchio.bo.it"
+<Multi_key> <b> <h> : "Hello world!"
+<Multi_key> <b> <b> : "Bye bye!"
