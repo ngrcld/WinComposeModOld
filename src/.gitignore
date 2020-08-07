@@ -1,3 +1,5 @@
 # Our targets
 obj/
 bin/
+# Other
+.vs
