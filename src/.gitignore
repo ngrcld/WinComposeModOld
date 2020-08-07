@@ -1,5 +1,5 @@
 # Our targets
-bin/
-obj/
+bin/*
+obj/*
 # Other
-.vs/
+.vs/*
