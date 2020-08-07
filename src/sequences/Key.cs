@@ -346,8 +346,8 @@ public partial class Key
 
     public static bool operator ==(Key a, Key b)
     {
-        bool is_a_null = ReferenceEquals(a, null);
-        bool is_b_null = ReferenceEquals(b, null);
+        bool is_a_null = a is null;
+        bool is_b_null = b is null;
         if (is_a_null || is_b_null)
             return is_a_null == is_b_null;
         return a.m_str != null ? a.m_str == b.m_str : a.m_vk == b.m_vk;

@@ -114,7 +114,7 @@ static class Updater
 
     public static string Get(string key)
     {
-        string ret = null;
+        string ret;
         m_data.TryGetValue(key, out ret);
         return ret;
     }
@@ -156,7 +156,7 @@ static class Updater
         return $"WinCompose/{Settings.Version} ({Environment.OSVersion}{flavour})";
     }
 
-    private static Dictionary<string, string> m_data = new Dictionary<string, string>();
+    private static readonly Dictionary<string, string> m_data = new Dictionary<string, string>();
     private static Thread m_thread;
 }
 

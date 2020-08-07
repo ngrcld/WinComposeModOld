@@ -120,8 +120,8 @@ namespace WinCompose
         public IEnumerable<CategoryViewModel> Categories => m_categories;
         public IEnumerable<SequenceViewModel> Sequences => m_sequences;
 
-        private IList<CategoryViewModel> m_categories = new ObservableCollection<CategoryViewModel>();
-        private IList<SequenceViewModel> m_sequences = new ObservableCollection<SequenceViewModel>();
+        private readonly IList<CategoryViewModel> m_categories = new ObservableCollection<CategoryViewModel>();
+        private readonly IList<SequenceViewModel> m_sequences = new ObservableCollection<SequenceViewModel>();
 
         public string SearchText
         {

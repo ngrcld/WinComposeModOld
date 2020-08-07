@@ -76,13 +76,13 @@ public class SequenceTree : SequenceNode
             ParseRule(line);
     }
 
-    private static Regex m_r0 = new Regex(@"^\s*include\s*""([^""]*)""");
-    private static Regex m_r1 = new Regex(@"^\s*(<:>|<[^:]*>\s*)*:\s*(""(\\""|\\.|[^""])*""|[A-Za-z0-9_]*)[^#]*#?\s*(.*)");
+    private static readonly Regex m_r0 = new Regex(@"^\s*include\s*""([^""]*)""");
+    private static readonly Regex m_r1 = new Regex(@"^\s*(<:>|<[^:]*>\s*)*:\s*(""(\\""|\\.|[^""])*""|[A-Za-z0-9_]*)[^#]*#?\s*(.*)");
         //                                      ^^^^^^^^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^           ^^^^
         //                                            keys                result 1         result 2             desc
 
     // Split along "^<", ">$", or "> <" to capture tag contents
-    private static Regex m_r2 = new Regex(@"(?:^\s*<|>\s*<|>\s*$)");
+    private static readonly Regex m_r2 = new Regex(@"(?:^\s*<|>\s*<|>\s*$)");
 
     private void ParseRule(string line)
     {
@@ -203,8 +203,8 @@ public class SequenceTree : SequenceNode
         return -1;
     }
 
-    private IList<string> m_loaded_files = new List<string>();
-    private IDictionary<string, bool> m_invalid_keys = new Dictionary<string, bool>();
+    private readonly IList<string> m_loaded_files = new List<string>();
+    private readonly IDictionary<string, bool> m_invalid_keys = new Dictionary<string, bool>();
 }
 
 /// <summary>
@@ -358,7 +358,7 @@ public class SequenceNode
 
     protected IDictionary<Key, SequenceNode> m_children
         = new Dictionary<Key, SequenceNode>();
-    private IList<SequenceDescription> m_results
+    private readonly IList<SequenceDescription> m_results
         = new List<SequenceDescription>();
 };
 

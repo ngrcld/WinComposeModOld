@@ -55,7 +55,7 @@ public class LogList : ObservableCollection<LogEntry>
 
 public static class Log
 {
-    private static LogList m_entries = new LogList();
+    private static readonly LogList m_entries = new LogList();
     public static LogList Entries => m_entries;
 
 #if DEBUG
@@ -95,7 +95,7 @@ public static class Log
     }
 
     private delegate void DebugDelegate(DateTime date, string msg);
-    private static DebugDelegate DebugSTA = (date, msg) =>
+    private static readonly DebugDelegate DebugSTA = (date, msg) =>
     {
         var entry = new LogEntry() { DateTime = date, Message = msg };
         while (m_entries.Count > 1024)

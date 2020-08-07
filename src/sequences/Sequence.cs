@@ -122,7 +122,7 @@ public class KeySequence : List<Key>
         return ret;
     }
 
-    private static Regex re_xml = new Regex(@"\{\{|\}\}|\{[^{}]*\}|.");
+    private static readonly Regex re_xml = new Regex(@"\{\{|\}\}|\{[^{}]*\}|.");
 
     /// <summary>
     /// Construct a key sequence from an XML attr string.

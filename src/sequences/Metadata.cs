@@ -137,7 +137,7 @@ namespace WinCompose
             m_xml.Save(m_dict);
         }
 
-        private static XmlFile m_xml
+        private static readonly XmlFile m_xml
             = new XmlFile(Path.Combine(Utils.AppDataDir, "metadata.xml"));
 
         private static MetadataDB m_dict = new MetadataDB();

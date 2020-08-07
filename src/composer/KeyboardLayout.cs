@@ -146,7 +146,7 @@ public static class KeyboardLayout
         // for its layout, and apply the same layout to WinCompose itself.
         Window.Hwnd = NativeMethods.GetForegroundWindow();
 
-        var tid = NativeMethods.GetWindowThreadProcessId(Window.Hwnd, out var pid);
+        var tid = NativeMethods.GetWindowThreadProcessId(Window.Hwnd, out _);
         var active_layout = NativeMethods.GetKeyboardLayout(tid);
         if (active_layout != m_current_layout)
         {
@@ -243,7 +243,7 @@ public static class KeyboardLayout
 
             Log.Debug($"Window {Hwnd} (class: {wclass}) (name: {wname}) got focus");
 
-            IsGtk = m_match_gtk.Match(wclass).Success;
+            // IsGtk = m_match_gtk.Match(wclass).Success;
             IsOffice = m_match_office.Match(wclass).Success;
             IsOtherDesktop = m_match_desktop.Match(wclass).Success;
 
@@ -258,11 +258,11 @@ public static class KeyboardLayout
 
         // Match window class for standard GTK applications, with additional
         // case for XChat and HexChat.
-        private static Regex m_match_gtk = new Regex("^(gdk|xchat|hexchat)WindowToplevel$");
+        // private static readonly Regex m_match_gtk = new Regex("^(gdk|xchat|hexchat)WindowToplevel$");
         // Match Office applications (Word, Outlook…)
-        private static Regex m_match_office = new Regex("^(rctrl_renwnd32|OpusApp)$");
+        private static readonly Regex m_match_office = new Regex("^(rctrl_renwnd32|OpusApp)$");
         // Match windows where we should be inactive (Synergy, Xorg on cygwin…)
-        private static Regex m_match_desktop = new Regex("^(SynergyDesk|cygwin/x.*)$");
+        private static readonly Regex m_match_desktop = new Regex("^(SynergyDesk|cygwin/x.*)$");
 
         // Keep track of the window that has focus
         public IntPtr Hwnd
@@ -277,7 +277,7 @@ public static class KeyboardLayout
             }
         }
 
-        public bool IsGtk { get; private set; }
+        // public bool IsGtk { get; private set; }
         public bool IsOffice { get; private set; }
         public bool IsOtherDesktop { get; private set; }
 

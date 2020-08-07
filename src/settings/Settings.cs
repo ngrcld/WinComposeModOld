@@ -95,21 +95,21 @@ namespace WinCompose
         [EntryLocation("composing", "reset_delay")]
         public static SettingsEntry<int> ResetTimeout { get; } = new SettingsEntry<int>(-1);
         [EntryLocation("composing", "use_xorg_rules")]
-        public static SettingsEntry<bool> UseXorgRules { get; } = new SettingsEntry<bool>(true);
+        public static SettingsEntry<bool> UseXorgRules { get; } = new SettingsEntry<bool>(false);
         [EntryLocation("composing", "use_xcompose_rules")]
-        public static SettingsEntry<bool> UseXComposeRules { get; } = new SettingsEntry<bool>(true);
+        public static SettingsEntry<bool> UseXComposeRules { get; } = new SettingsEntry<bool>(false);
         [EntryLocation("composing", "use_emoji_rules")]
-        public static SettingsEntry<bool> UseEmojiRules { get; } = new SettingsEntry<bool>(true);
+        public static SettingsEntry<bool> UseEmojiRules { get; } = new SettingsEntry<bool>(false);
         [EntryLocation("composing", "unicode_input")]
         public static SettingsEntry<bool> UnicodeInput { get; } = new SettingsEntry<bool>(true);
         [EntryLocation("composing", "case_insensitive")]
         public static SettingsEntry<bool> CaseInsensitive { get; } = new SettingsEntry<bool>(false);
         [EntryLocation("composing", "discard_on_invalid")]
-        public static SettingsEntry<bool> DiscardOnInvalid { get; } = new SettingsEntry<bool>(false);
+        public static SettingsEntry<bool> DiscardOnInvalid { get; } = new SettingsEntry<bool>(true);
         [EntryLocation("composing", "swap_on_invalid")]
         public static SettingsEntry<bool> SwapOnInvalid { get; } = new SettingsEntry<bool>(false);
         [EntryLocation("composing", "beep_on_invalid")]
-        public static SettingsEntry<bool> BeepOnInvalid { get; } = new SettingsEntry<bool>(false);
+        public static SettingsEntry<bool> BeepOnInvalid { get; } = new SettingsEntry<bool>(true);
         [EntryLocation("composing", "keep_original_key")]
         public static SettingsEntry<bool> KeepOriginalKey { get; } = new SettingsEntry<bool>(false);
         [EntryLocation("composing", "always_compose")]
@@ -156,7 +156,7 @@ namespace WinCompose
             m_ini_file.Dispose();
         }
 
-        private static IniFile m_ini_file;
+        private static readonly IniFile m_ini_file;
 
         private static void ValidateSettings()
         {
@@ -188,7 +188,7 @@ namespace WinCompose
             // Check that the keyboard LED key is legal
             if (LedKey.Value.Count != 1 || !ValidLedKeys.Contains(LedKey.Value[0]))
             {
-                LedKey.Value = new KeySequence{ new Key(VK.COMPOSE) };
+                LedKey.Value = new KeySequence{ new Key(VK.DISABLED) };
             }
         }
 
@@ -291,7 +291,7 @@ namespace WinCompose
             if (!File.Exists(user_file))
             {
                 string alt_file = Path.Combine(Utils.UserDir, ".XCompose.txt");
-                string default_file = Path.Combine(Utils.DataDir, "DefaultUserSequences.txt");
+                string default_file = Path.Combine(Utils.DataDir, "DefaultUserSequencesClaudio.txt");
                 if (File.Exists(alt_file))
                 {
                     user_file = alt_file;
@@ -363,13 +363,13 @@ namespace WinCompose
             return true;
         }
 
-        private static Regex m_match_gen_prefix = new Regex(@"^[uU][0-9a-fA-F]{0,6}$");
-        private static Regex m_match_gen_seq = new Regex(@"^[uU]([0-9a-fA-F]{1,6})( |{return})$");
+        private static readonly Regex m_match_gen_prefix = new Regex(@"^[uU][0-9a-fA-F]{0,6}$");
+        private static readonly Regex m_match_gen_seq = new Regex(@"^[uU]([0-9a-fA-F]{1,6})( |{return})$");
 
         public static List<SequenceDescription> GetSequenceDescriptions() => m_sequences.GetSequenceDescriptions();
 
         // Tree of all known sequences
-        private static SequenceTree m_sequences = new SequenceTree();
+        private static readonly SequenceTree m_sequences = new SequenceTree();
 
         // FIXME: couldn't we accept any compose key?
         private static readonly KeySequence m_valid_compose_keys = new KeySequence

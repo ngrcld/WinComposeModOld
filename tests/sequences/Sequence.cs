@@ -6,7 +6,7 @@ namespace WinCompose
     [TestClass]
     public class SequenceTreeTest
     {
-        SequenceTree tree = new SequenceTree();
+        readonly SequenceTree tree = new SequenceTree();
 
         [TestMethod]
         public void TestUnicodeSequences()

@@ -89,6 +89,6 @@ namespace WinCompose
 
         public bool IsFavorite => Metadata.IsFavorite(Sequence, Result);
 
-        private SequenceDescription m_desc;
+        private readonly SequenceDescription m_desc;
     }
 }

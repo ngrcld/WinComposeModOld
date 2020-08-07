@@ -101,7 +101,7 @@ static class KeyboardHook
 
     // Keep an explicit reference on the CALLBACK object created because
     // SetWindowsHookEx will not prevent it from being GCed.
-    private static CALLBACK m_callback = new CALLBACK(OnKey);
+    private static readonly CALLBACK m_callback = new CALLBACK(OnKey);
 
     private static HOOK m_hook = HOOK.INVALID;
 

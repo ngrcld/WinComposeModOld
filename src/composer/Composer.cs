@@ -95,7 +95,7 @@ static class Composer
     public static bool OnKey(WM ev, VK vk, SC sc, LLKHF flags)
     {
         // Remember when the user touched a key for the last time
-        m_last_key_time = DateTime.Now;
+        // m_last_key_time = DateTime.Now;
 
         // Do nothing if we are disabled; NOTE: this disables stats, too
         if (Settings.Disabled.Value)
@@ -191,23 +191,23 @@ static class Composer
             return true;
         }
 
-        // Update statistics
-        if (is_keydown)
-        {
-            // Update single key statistics
-            Stats.AddKey(key);
-
-            // Update key pair statistics if applicable
-            if (DateTime.Now < m_last_key_time.AddMilliseconds(2000)
-                 && m_last_key != null)
-            {
-                Stats.AddPair(m_last_key, key);
-            }
-
-            // Remember when we pressed a key for the last time
-            m_last_key_time = DateTime.Now;
-            m_last_key = key;
-        }
+//        // Update statistics
+//        if (is_keydown)
+//        {
+//            // Update single key statistics
+//            Stats.AddKey(key);
+//
+//            // Update key pair statistics if applicable
+//            if (DateTime.Now < m_last_key_time.AddMilliseconds(2000)
+//                 && m_last_key != null)
+//            {
+//                Stats.AddPair(m_last_key, key);
+//            }
+//
+//            // Remember when we pressed a key for the last time
+//            m_last_key_time = DateTime.Now;
+//            m_last_key = key;
+//        }
 
         // If the special Synergy window has focus, we’re actually sending
         // keystrokes to another computer; disable WinCompose. Same if it is
@@ -224,26 +224,26 @@ static class Composer
             CurrentComposeKey = new Key(VK.NONE);
         }
 
-        // Magic sequence handling. If the exact sequence is typed, we
-        // enter compose state.
-        if (m_magic_pos < m_magic_sequence.Count
-             && m_magic_sequence[m_magic_pos].Key == key.VirtualKey
-             && m_magic_sequence[m_magic_pos].Value == is_keydown)
-        {
-            ++m_magic_pos;
-            Log.Debug($"Magic key {m_magic_pos}/{m_magic_sequence.Count}");
-
-            if (CurrentState == State.Idle && m_magic_pos == m_magic_sequence.Count)
-            {
-                CurrentState = State.Sequence;
-                CurrentComposeKey = new Key(VK.NONE);
-                Log.Debug($"Magic sequence entered (state: {m_state})");
-                m_magic_pos = 0;
-                goto exit_forward_key;
-            }
-        }
-        else
-            m_magic_pos = 0;
+//        // Magic sequence handling. If the exact sequence is typed, we
+//        // enter compose state.
+//        if (m_magic_pos < m_magic_sequence.Count
+//             && m_magic_sequence[m_magic_pos].Key == key.VirtualKey
+//             && m_magic_sequence[m_magic_pos].Value == is_keydown)
+//        {
+//            ++m_magic_pos;
+//            Log.Debug($"Magic key {m_magic_pos}/{m_magic_sequence.Count}");
+//
+//            if (CurrentState == State.Idle && m_magic_pos == m_magic_sequence.Count)
+//            {
+//                CurrentState = State.Sequence;
+//                CurrentComposeKey = new Key(VK.NONE);
+//                Log.Debug($"Magic sequence entered (state: {m_state})");
+//                m_magic_pos = 0;
+//                goto exit_forward_key;
+//            }
+//        }
+//        else
+//            m_magic_pos = 0;
 
         // If we receive a keyup for the compose key while in emulation
         // mode, we’re done. Send a KeyUp event and exit emulation mode.
@@ -302,6 +302,26 @@ static class Composer
 
             return true;
         }
+
+        // Claudio ############################################################
+        if (m_compose_counter == 1 && CurrentState == State.Sequence
+                && is_keyup && Settings.ComposeKeys.Value.Contains(key)
+                && m_sequence.Count == 0)
+        {
+            CurrentState = State.Idle;
+            CurrentComposeKey = new Key(VK.NONE);
+            m_compose_key_is_altgr = key.VirtualKey == VK.RMENU &&
+                                        KeyboardLayout.HasAltGr;
+            --m_compose_counter;
+
+            Log.Debug("No longer composing (state: {0}) (altgr: {1})",
+                        m_state, m_compose_key_is_altgr);
+
+            ResetSequence();
+
+            return true;
+        }
+        // Claudio ############################################################
 
         // If this is a compose key KeyDown event and it’s already down, or it’s
         // a KeyUp and it’s already up, eat this event without forwarding it.
@@ -461,7 +481,7 @@ exit_forward_key:
     /// </summary>
     private static bool AddToSequence(Key key)
     {
-        KeySequence old_sequence = new KeySequence(m_sequence);
+        // KeySequence old_sequence = new KeySequence(m_sequence);
         m_sequence.Add(key);
 
         // We try the following, in this order:
@@ -484,7 +504,7 @@ exit_forward_key:
                                                            ignore_case);
                 SendString(tosend);
                 Log.Debug("Valid sequence! Sent “{0}”", tosend);
-                Stats.AddSequence(m_sequence);
+                // Stats.AddSequence(m_sequence);
                 ResetSequence();
                 return true;
             }
@@ -504,7 +524,7 @@ exit_forward_key:
                 {
                     SendString(tosend);
                     Log.Debug("Valid generic sequence! Sent “{0}”", tosend);
-                    Stats.AddSequence(m_sequence);
+                    // Stats.AddSequence(m_sequence);
                     ResetSequence();
                     return true;
                 }
@@ -520,7 +540,7 @@ exit_forward_key:
                                                                ignore_case);
                     SendString(tosend);
                     Log.Debug("Found swapped sequence! Sent “{0}”", tosend);
-                    Stats.AddSequence(other_sequence);
+                    // Stats.AddSequence(other_sequence);
                     ResetSequence();
                     return true;
                 }
@@ -561,7 +581,10 @@ exit_forward_key:
          * applications such as XChat for Windows rename their own top-level
          * window, so we parse through the names we know in order to detect
          * a GTK+ application. */
-        bool use_gtk_hack = KeyboardLayout.Window.IsGtk;
+        // bool use_gtk_hack = KeyboardLayout.Window.IsGtk;
+        // Claudio ############################################################
+        bool use_gtk_hack = false;
+        // Claudio ############################################################
 
         /* HACK: in MS Office, some symbol insertions change the text font
          * without returning to the original font. To avoid this, we output
@@ -715,14 +738,14 @@ exit_forward_key:
     /// <summary>
     /// The sequence being currently typed
     /// </summary>
-    private static KeySequence m_sequence = new KeySequence();
+    private static readonly KeySequence m_sequence = new KeySequence();
 
-    private static Key m_last_key;
-    private static DateTime m_last_key_time = DateTime.Now;
+    // private static Key m_last_key;
+    // private static DateTime m_last_key_time = DateTime.Now;
 
     private static DispatcherTimer m_timeout;
 
-    private static readonly TimeSpan NEVER = TimeSpan.FromMilliseconds(-1);
+    // private static readonly TimeSpan NEVER = TimeSpan.FromMilliseconds(-1);
 
     /// <summary>
     /// How many times we pressed and released compose.
@@ -778,19 +801,19 @@ exit_forward_key:
     /// </summary>
     public static bool IsComposing => CurrentState == State.Sequence;
 
-    private static int m_magic_pos;
+//    private static int m_magic_pos;
 
-    private static readonly List<KeyValuePair<VK, bool>> m_magic_sequence = new List<KeyValuePair<VK, bool>>()
-    {
-        new KeyValuePair<VK, bool>(VK.LSHIFT, true),
-        new KeyValuePair<VK, bool>(VK.LMENU, true),
-        new KeyValuePair<VK, bool>(VK.LCONTROL, true),
-        new KeyValuePair<VK, bool>(VK.LMENU, false),
-        new KeyValuePair<VK, bool>(VK.LMENU, true),
-        new KeyValuePair<VK, bool>(VK.LSHIFT, false),
-        new KeyValuePair<VK, bool>(VK.LCONTROL, false),
-        new KeyValuePair<VK, bool>(VK.LMENU, false),
-    };
+//    private static readonly List<KeyValuePair<VK, bool>> m_magic_sequence = new List<KeyValuePair<VK, bool>>()
+//    {
+//        new KeyValuePair<VK, bool>(VK.LSHIFT, true),
+//        new KeyValuePair<VK, bool>(VK.LMENU, true),
+//        new KeyValuePair<VK, bool>(VK.LCONTROL, true),
+//        new KeyValuePair<VK, bool>(VK.LMENU, false),
+//        new KeyValuePair<VK, bool>(VK.LMENU, true),
+//        new KeyValuePair<VK, bool>(VK.LSHIFT, false),
+//        new KeyValuePair<VK, bool>(VK.LCONTROL, false),
+//        new KeyValuePair<VK, bool>(VK.LMENU, false),
+//    };
 }
 
 }

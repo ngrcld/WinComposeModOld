@@ -56,7 +56,7 @@ namespace WinCompose
         private bool m_is_selected;
         private bool m_is_empty;
         private readonly RootViewModel m_root;
-        private Category m_category;
+        private readonly Category m_category;
 
         private void PropertyChangedCallback(object sender, PropertyChangedEventArgs e)
         {

@@ -58,9 +58,9 @@ public static class KeyboardLeds
     private static void DisableTimer()
         => m_update_timer.Change(TimeSpan.FromSeconds(-1), TimeSpan.FromSeconds(-1));
 
-    private static Timer m_update_timer = new Timer(Refresh);
+    private static readonly Timer m_update_timer = new Timer(Refresh);
 
-    private static IList<ushort> m_kbd_devices = new List<ushort>();
+    private static readonly IList<ushort> m_kbd_devices = new List<ushort>();
 
     private static readonly IDictionary<VK, KEYBOARD> m_vk_to_flag = new Dictionary<VK, KEYBOARD>
     {
