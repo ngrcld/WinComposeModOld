@@ -13,9 +13,6 @@
 [submodule "src/3rdparty/xorgproto"]
 	path = src/3rdparty/xorgproto
 	url = git://anongit.freedesktop.org/git/xorg/proto/xorgproto
-[submodule "src/3rdparty/inserticons"]
-	path = src/3rdparty/inserticons
-	url = ../InsertIcons
 [submodule "src/3rdparty/wpf-notify-icon"]
 	path = src/3rdparty/wpf-notify-icon
 	url = ../../samhocevar/fork-wpf-notify-icon.git
