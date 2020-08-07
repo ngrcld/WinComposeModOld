@@ -2,7 +2,7 @@
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C037D608-57FD-4ACD-AAC1-BFAD1767B11B}</ProjectGuid>
@@ -11,16 +11,16 @@
     <RootNamespace>InsertIcons</RootNamespace>
     <AssemblyName>InsertIcons</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids></ProjectTypeGuids>
+    <BaseIntermediateOutputPath>..\obj\InsertIcons</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>InsertIcons.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\InsertIcons\$(Configuration)\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -29,10 +29,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\InsertIcons\$(Configuration)\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
@@ -43,36 +43,36 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="lib\Mono.Security\Cryptography\CryptoConvert.cs" />
-    <Compile Include="lib\Mono.Security\StrongName.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="lib\ResourceLib\DeviceIndependentBitmap.cs">
+    <Compile Include="InsertIcons\lib\Mono.Security\Cryptography\CryptoConvert.cs" />
+    <Compile Include="InsertIcons\lib\Mono.Security\StrongName.cs" />
+    <Compile Include="InsertIcons\Program.cs" />
+    <Compile Include="InsertIcons\lib\ResourceLib\DeviceIndependentBitmap.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="lib\ResourceLib\DirectoryResource.cs" />
-    <Compile Include="lib\ResourceLib\Gdi32.cs">
+    <Compile Include="InsertIcons\lib\ResourceLib\DirectoryResource.cs" />
+    <Compile Include="InsertIcons\lib\ResourceLib\Gdi32.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="lib\ResourceLib\IconDirectoryResource.cs" />
-    <Compile Include="lib\ResourceLib\IconFile.cs" />
-    <Compile Include="lib\ResourceLib\IconFileIcon.cs">
+    <Compile Include="InsertIcons\lib\ResourceLib\IconDirectoryResource.cs" />
+    <Compile Include="InsertIcons\lib\ResourceLib\IconFile.cs" />
+    <Compile Include="InsertIcons\lib\ResourceLib\IconFileIcon.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="lib\ResourceLib\IconImageResource.cs" />
-    <Compile Include="lib\ResourceLib\IconResource.cs">
+    <Compile Include="InsertIcons\lib\ResourceLib\IconImageResource.cs" />
+    <Compile Include="InsertIcons\lib\ResourceLib\IconResource.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="lib\ResourceLib\Kernel32.cs" />
-    <Compile Include="lib\ResourceLib\Resource.cs" />
-    <Compile Include="lib\ResourceLib\ResourceId.cs" />
-    <Compile Include="lib\ResourceLib\ResourceInfo.cs" />
-    <Compile Include="lib\ResourceLib\ResourceUtil.cs">
+    <Compile Include="InsertIcons\lib\ResourceLib\Kernel32.cs" />
+    <Compile Include="InsertIcons\lib\ResourceLib\Resource.cs" />
+    <Compile Include="InsertIcons\lib\ResourceLib\ResourceId.cs" />
+    <Compile Include="InsertIcons\lib\ResourceLib\ResourceInfo.cs" />
+    <Compile Include="InsertIcons\lib\ResourceLib\ResourceUtil.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="lib\ResourceLib\User32.cs" />
+    <Compile Include="InsertIcons\lib\ResourceLib\User32.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="lib\ResourceLib\License.txt" />
+    <Content Include="InsertIcons\lib\ResourceLib\License.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
