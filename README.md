@@ -7,12 +7,11 @@ A **compose key** allows to easily write special characters such as **É** and *
 
 ---
 
-In this modified version, the <kbd>⎄ Compose</kbd> key must be kept pressed to initiate a compose sequence (this key
-defaults to <kbd>Right Alt</kbd>).
+In this modified version, the <kbd>⎄ Compose</kbd> key must be kept pressed to initiate a compose sequence (this key defaults to <kbd>Right Alt</kbd>).
 
 This modified version is optimized for the Italian keyboard.
 
-Compiles with Microsoft .NET Framework 3.5 and Microsoft Visual Studio Community 2019
+Compiles with Microsoft .NET Framework 3.5 and Microsoft Visual Studio Community 2019 (free)
 
 Default special characters and strings:
 
