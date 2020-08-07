@@ -1,5 +1,5 @@
 # Our targets
-obj/
 bin/
+obj/
 # Other
 .vs
